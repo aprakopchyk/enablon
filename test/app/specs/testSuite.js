@@ -1,10 +1,10 @@
-const testData = require("../constants/testData");
+const testData = require("../testData/testData");
 const logger = require("../../framework/utils/logger");
 const config = require("../../framework/utils/config");
 const testCasesStatus = require("../../framework/utils/testCasesStatuses");
 const MainPage = require("../pageobjects/mainPage");
-const url = require("../constants/urls");
-const browserKeys = require("../../framework/utils/browserKeys");
+const url = require("../../framework/constants/urls");
+const browserKeys = require("../../framework/constants/browserKeys");
 const Browser = require("../../framework/utils/browser");
 const { expect } = require("chai");
 

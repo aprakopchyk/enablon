@@ -1,4 +1,4 @@
-const timeouts = require("../../app/constants/timeouts");
+const timeouts = require("../constants/timeouts");
 
 module.exports.config = {
   waitforTimeout: timeouts.element,
