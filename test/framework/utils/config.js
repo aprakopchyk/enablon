@@ -1,5 +1,5 @@
-module.exports = {
-  keys: {
-    enter: "\uE007",
-  },
+const timeouts = require("../../app/constants/timeouts");
+
+module.exports.config = {
+  waitforTimeout: timeouts.element,
 };

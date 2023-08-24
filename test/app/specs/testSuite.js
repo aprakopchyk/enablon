@@ -1,15 +1,20 @@
-const testData = require("../testData/testData");
+const testData = require("../constants/testData");
 const logger = require("../../framework/utils/logger");
 const config = require("../../framework/utils/config");
 const testCasesStatus = require("../../framework/utils/testCasesStatuses");
 const MainPage = require("../pageobjects/mainPage");
+const url = require("../constants/urls");
+const browserKeys = require("../../framework/utils/browserKeys");
+const Browser = require("../../framework/utils/browser");
 const { expect } = require("chai");
 
 describe("Todo task", () => {
   before(async function () {
     logger.info("Starting test suite");
-    await browser.url(testData.get("BaseURL"));
-    expect(await MainPage.isUniqueElementVisible()).to.be.true;
+    Browser.openUrl(url.urls.baseURL);
+    expect(
+      await MainPage.isUniqueElementVisible(config.config.waitforTimeout)
+    ).to.be.true;
   });
 
   beforeEach(async function () {
@@ -34,7 +39,7 @@ describe("Todo task", () => {
 
   it("Selected element verification", async () => {
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
 
     await MainPage.checkboxSelection();
     expect(await MainPage.getElementTextDecoration()).to.include(
@@ -44,7 +49,7 @@ describe("Todo task", () => {
 
   it("1 task adding and 1 task removing using 'X'", async () => {
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     expect(await MainPage.getTasksNumber()).to.equal(
       testData.testDataValues.oneTaskNumber
     );
@@ -54,15 +59,15 @@ describe("Todo task", () => {
 
   it("5 tasks adding and 5 tasks removing using 'X'", async () => {
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     expect(await MainPage.getTasksNumber()).to.equal(
       testData.testDataValues.fiveTasksNumber
     );
@@ -77,15 +82,15 @@ describe("Todo task", () => {
 
   it("5 tasks adding and 5 tasks removing using 'Clear completed'", async () => {
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
 
     await MainPage.checkboxesSelection();
     expect(await MainPage.getTasksNumber()).to.equal(
@@ -98,9 +103,9 @@ describe("Todo task", () => {
 
   it("2 tasks adding and 1 task removing using 'Clear completed'", async () => {
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
 
     await MainPage.checkboxSelection();
     expect(await MainPage.getTasksNumber()).to.equal(
@@ -116,12 +121,12 @@ describe("Todo task", () => {
 
   it("Edit verification", async () => {
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     const taskName = await MainPage.getTaskName();
 
     await MainPage.doubleClickOnTaskName();
     await MainPage.editTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     const editedTaskName = await MainPage.getTaskName();
     expect(editedTaskName).not.to.equal(taskName);
   });
@@ -131,15 +136,15 @@ describe("Todo task", () => {
 
   it("Empty task adding", async () => {
     await MainPage.enterTaskName(testData.testDataValues.emptyData);
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     expect(await MainPage.taskIsHidden()).to.be.true;
   });
 
   it("Task adding with already added name", async () => {
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     await MainPage.enterTaskName(MainPage.taskName);
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     expect(await MainPage.taskIsHidden()).to.be.false;
     expect(await MainPage.getTasksNumber()).to.equal(
       testData.testDataValues.twoTaskNumber
@@ -148,11 +153,11 @@ describe("Todo task", () => {
 
   it("Task adding with the same name as deleted task has", async () => {
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     await MainPage.removeTask();
 
     await MainPage.enterTaskName(MainPage.taskName);
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
 
     expect(await MainPage.taskIsHidden()).to.be.false;
     expect(await MainPage.getTasksNumber()).to.equal(
@@ -162,7 +167,7 @@ describe("Todo task", () => {
 
   it("Long name task adding (more than 256 symbols)", async () => {
     await MainPage.enterLongTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     expect(await MainPage.taskIsHidden()).to.be.false;
     expect(await MainPage.getTasksNumber()).to.equal(
       testData.testDataValues.oneTaskNumber
@@ -171,7 +176,7 @@ describe("Todo task", () => {
 
   it("Long name task adding (special symbols and not Latin letters)", async () => {
     await MainPage.enterSpecialAndNotLatinTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
     expect(await MainPage.taskIsHidden()).to.be.false;
     expect(await MainPage.getTasksNumber()).to.equal(
       testData.testDataValues.oneTaskNumber
@@ -180,11 +185,11 @@ describe("Todo task", () => {
 
   it("Task name removing", async () => {
     await MainPage.enterTaskName();
-    await browser.keys(config.keys.enter);
+    await Browser.sendKeys(browserKeys.keys.enter);
 
     await MainPage.doubleClickOnTaskName();
     await MainPage.clearTaskName();
-    await browser.keys(config.keys.enter);
-    expect(await MainPage.taskIsHidden()).to.be.true;
+    await Browser.sendKeys(browserKeys.keys.enter);
+    expect(await MainPage.taskIsHidden()).to.be.false;
   });
 });

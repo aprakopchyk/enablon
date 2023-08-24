@@ -1,6 +1,6 @@
 class StringUtils {
-  static async extractNumberFromText(text) {
-    return parseInt(text.replace(/,/g, ""), 10);
+  static extractNumberFromText(text) {
+    return parseInt(text.replace(/\D/g, ""), 10);
   }
 }
 

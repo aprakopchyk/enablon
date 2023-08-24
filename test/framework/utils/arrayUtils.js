@@ -1,5 +1,5 @@
 class ArrayUtils {
-  static async generateTaskName() {
+  static generateTaskName() {
     const chars =
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     const taskName = Array.from({ length: 10 }, () =>
@@ -8,7 +8,7 @@ class ArrayUtils {
     return taskName;
   }
 
-  static async generateLongTaskName() {
+  static generateLongTaskName() {
     const chars =
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     const longTaskName = Array.from({ length: 257 }, () =>
@@ -17,7 +17,7 @@ class ArrayUtils {
     return longTaskName;
   }
 
-  static async generateSpecialAndNonLatinTaskName() {
+  static generateSpecialAndNonLatinTaskName() {
     const specialChars = "!@#$%^&*()_+{}:\"<>?~\\-=[];',.";
     const nonLatinChars = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
     const combinedChars = specialChars + nonLatinChars;

@@ -2,7 +2,7 @@ const logger = require("../framework/utils/logger");
 
 class BaseElement {
   constructor(locator, name) {
-    if (this.constructor == BaseElement) {
+    if (this.constructor === BaseElement) {
       throw new Error("Abstracted classes cant be instantiated");
     }
     this.locator = locator;
@@ -119,6 +119,17 @@ class BaseElement {
       return element.getCSSProperty(value);
     } catch (error) {
       logger.error(`Error getting CSS property from element: ${this.name}`);
+      throw error;
+    }
+  }
+
+  async addValue(value) {
+    try {
+      const element = await this.getElement();
+      logger.info(`Adding value for Element: ${this.name} to: ${value}`);
+      await element.addValue(value);
+    } catch (error) {
+      logger.error(`Error adding value for Element: ${this.name}`);
       throw error;
     }
   }

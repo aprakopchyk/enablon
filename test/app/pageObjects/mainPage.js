@@ -6,6 +6,7 @@ const Input = require("../../framework/commonElements/input");
 const Link = require("../../framework/commonElements/link");
 const Checkbox = require("../../framework/commonElements/checkbox");
 const Button = require("../../framework/commonElements/button");
+const config = require("../../framework/utils/config");
 
 class MainPage extends BasePage {
   constructor() {
@@ -64,7 +65,7 @@ class MainPage extends BasePage {
 
   async editTaskName() {
     this.taskName = await ArrayUtils.generateTaskName();
-    await this.editedTask.setValue(this.taskName);
+    await this.editedTask.addValue(this.taskName);
   }
 
   async clearTaskName() {
@@ -92,7 +93,9 @@ class MainPage extends BasePage {
   }
 
   async taskIsHidden() {
-    return await this.addedTask.waitForElementToBeNotDisplayed();
+    return await this.addedTask.waitForElementToBeNotDisplayed(
+      config.config.waitforTimeout
+    );
   }
 
   async checkboxesSelection() {
