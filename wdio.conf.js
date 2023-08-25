@@ -1,3 +1,5 @@
+const timeout = require("../test_task/test/framework/constants/timeouts");
+
 exports.config = {
   runner: "local",
   specs: ["./test/app/specs/testSuite.js"],
@@ -17,7 +19,7 @@ exports.config = {
   framework: "mocha",
   mochaOpts: {
     ui: "bdd",
-    timeout: 60000,
+    timeout: timeout.testTime,
   },
   afterTest: async function (
     test,
@@ -29,4 +31,3 @@ exports.config = {
     }
   },
 };
-

@@ -1,3 +1,0 @@
-{
-  "url": "https://todomvc.com/examples/angular2/"
-}

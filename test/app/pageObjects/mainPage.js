@@ -42,7 +42,7 @@ class MainPage extends BasePage {
 
   async enterTaskName(value) {
     if (!value) {
-      this.taskName = await ArrayUtils.generateTaskName();
+      this.taskName = ArrayUtils.generateTaskName();
       await this.inputField.setValue(this.taskName);
     } else {
       await this.inputField.setValue(value);
@@ -50,12 +50,12 @@ class MainPage extends BasePage {
   }
 
   async enterLongTaskName() {
-    this.taskName = await ArrayUtils.generateLongTaskName();
+    this.taskName = ArrayUtils.generateLongTaskName();
     await this.inputField.setValue(this.taskName);
   }
 
   async enterSpecialAndNotLatinTaskName() {
-    this.taskName = await ArrayUtils.generateSpecialAndNonLatinTaskName();
+    this.taskName = ArrayUtils.generateSpecialAndNonLatinTaskName();
     await this.inputField.setValue(this.taskName);
   }
 
@@ -64,12 +64,12 @@ class MainPage extends BasePage {
   }
 
   async editTaskName() {
-    this.taskName = await ArrayUtils.generateTaskName();
+    this.taskName = ArrayUtils.generateTaskName();
     await this.editedTask.addValue(this.taskName);
   }
 
   async clearTaskName() {
-    this.taskName = await ArrayUtils.generateTaskName();
+    this.taskName = ArrayUtils.generateTaskName();
     await this.editedTask.clearValue(this.taskName);
   }
 
