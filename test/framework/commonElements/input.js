@@ -27,6 +27,17 @@ class Input extends BaseElement {
       throw error;
     }
   }
+
+  async addValue(value) {
+    try {
+      const element = await this.getElement();
+      logger.info(`Adding value for Element: ${this.name} to: ${value}`);
+      await element.addValue(value);
+    } catch (error) {
+      logger.error(`Error adding value for Element: ${this.name}`);
+      throw error;
+    }
+  }
 }
 
 module.exports = Input;
